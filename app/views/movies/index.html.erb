@@ -1,7 +1,7 @@
 <ul>
   <% @movies.each do |movie| %>
     <li>Title: <%= movie.title %> - <%= movie.total_gross %></li>
-    <p><%= movie.description %></p>
-    <p><%= movie.released_on %></p>
+    <p><%= truncate_title(movie) %></p>
+    <p><%= day_and_time(movie) %></p>
   <% end %>
 </ul>
