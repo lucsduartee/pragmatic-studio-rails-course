@@ -1,5 +1,5 @@
 module MoviesHelper
-  def day_and_time(movie)
+  def year_of(movie)
     movie.released_on.strftime("%Y")
   end
 

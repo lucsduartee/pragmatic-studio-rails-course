@@ -1,7 +1,19 @@
-<ul>
-  <% @movies.each do |movie| %>
-    <li>Title: <%= movie.title %> - <%= movie.total_gross %></li>
-    <p><%= truncate_title(movie) %></p>
-    <p><%= day_and_time(movie) %></p>
-  <% end %>
-</ul>
+<% @movies.each do |movie| %>
+  <section class="movie">
+    <div class="summary">
+      <h2>
+        <%= link_to movie.title, movie_path(movie.id) %>
+      </h2>
+      <h3>
+        <%= movie.total_gross %>
+      </h3>
+      <p>
+        <%= truncate_title(movie) %>
+      </p>
+    </div>
+  </section>
+<% end %>
+
+<section class="admin">
+  <%= link_to "Add new movie", new_movie_path, class: "button" %>
+</section>

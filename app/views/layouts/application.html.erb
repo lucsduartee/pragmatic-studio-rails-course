@@ -18,10 +18,10 @@
   </head>
 
   <body>
-    <header>Header</header>
+    <%= render "layouts/header" %>
     <div class="content">
       <%= yield %>
     </div>
-    <footer>Footer</footer>
+    <%= render "layouts/footer" %>
   </body>
 </html>
