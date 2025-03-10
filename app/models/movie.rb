@@ -1,4 +1,6 @@
 class Movie < ApplicationRecord
+  has_many :reviews, dependent: :destroy
+
   RATINGS = %w[G PG PG-13 R NC-17]
 
   validates :title, :released_on, :duration, presence: true
@@ -13,5 +15,9 @@ class Movie < ApplicationRecord
 
   def self.released
     where("released_on < ?", Time.now).order("released_on desc")
+  end
+
+  def average_stars
+    reviews.average(:stars) || 0.0
   end
 end

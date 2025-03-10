@@ -18,6 +18,11 @@
         <td><%= @movie.total_gross %></td>
       </tr>
     </table>
+    <div class="reviews">
+      <%= average_stars(@movie) %>
+      <%= link_to pluralize(@movie.reviews.size, "review"), movie_reviews_path(@movie) %>
+      <%= link_to "Write Review", new_movie_review_path(@movie), class: "review" %>
+    </div>
   </div>
 </section>
 
