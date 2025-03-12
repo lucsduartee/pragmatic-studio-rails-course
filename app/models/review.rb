@@ -1,5 +1,6 @@
 class Review < ApplicationRecord
   belongs_to :movie
+  belongs_to :user
 
   STARS = [ 1, 2, 3, 4, 5 ]
 

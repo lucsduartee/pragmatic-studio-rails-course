@@ -1,8 +1,18 @@
 <section class="user">
   <h1><%= @user.name %></h1>
   <h2><%= mail_to(@user.email) %></h2>
+  <% if @favorite_movies.present? %>
+    <h3>Favorite Movies</h3>
+    <div class="favorite-movies">
+      <% @favorite_movies.each do |movie| %>
+        <%= link_to image_tag(movie.image_file_name), movie%>
+      <% end %>
+    </div>
+  <% end %>
+  <% if current_user?(@user) %>
   <div class="actions">
     <%= link_to "Edit account", edit_user_path(@user), class: "button edit" %>
     <%= link_to "Delete account", @user, data: { turbo_method: :delete, turbo_confirm: "are you sure?" }, class: "button delete" %>
   </div>
+  <% end %>
 </section>

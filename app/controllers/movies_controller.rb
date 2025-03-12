@@ -1,10 +1,32 @@
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.released
+    # case params[:filter]
+    # when "upcoming"
+    #   @movies = Movie.upcoming
+    # when "recent"
+    #   @movies = Movie.recent
+    # else
+    #   @movies = Movie.released
+    # end
+
+    # isso aqui embaixo é ruim, pois podem mandar um delete_all como filtro
+    # if params[:filter]
+    # @movies = Movie.send(params[:filter])
+    # else
+    # @movies = Movie.released
+    # end
+    # O ideal é fazer o seguinte
+    @movies = Movie.send(movies_filter)
   end
 
   def show
     @movie = Movie.find(params[:id])
+    @fans = @movie.fans
+    @genres = @movie.genres.order(:name)
+
+    if current_user
+      @favorite = current_user.favorites.find_by(movie_id: @movie.id)
+    end
   end
 
   def edit
@@ -48,6 +70,14 @@ class MoviesController < ApplicationController
 
   def movie_params
     params.require(:movie).permit(:title, :rating, :total_gross, :description, :released_on,
-                                  :duration, :director, :image_file_name)
+                                  :duration, :director, :image_file_name, genre_ids: [])
+  end
+
+  def movies_filter
+    if params[:filter].in? %w[upcoming recent hits flops]
+      params[:filter]
+    else
+      :released
+    end
   end
 end
